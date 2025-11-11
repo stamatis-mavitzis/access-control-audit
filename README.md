@@ -121,6 +121,36 @@ To clean up build artifacts:
 make clean
 ```
 
+### Running Analysis Targets via Makefile
+
+The Makefile also includes convenience targets to run monitoring commands directly.
+
+#### Detect Suspicious Users
+You can use:
+```bash
+make monitor-s
+```
+This executes:
+```bash
+./audit_monitor -s
+```
+It scans `/tmp/access_audit.log` and lists all users (UIDs) who attempted to access **more than 5 distinct files** where access was **denied**.
+
+#### Analyze a Specific File
+You can use:
+```bash
+make monitor-file FILE=<path_to_file>
+```
+For example:
+```bash
+make monitor-file FILE=example1.txt
+```
+This executes:
+```bash
+./audit_monitor -i example1.txt
+```
+and displays per-user modification counts and the total number of unique modifications.
+
 ---
 
 ## 5. Example Workflow
@@ -143,7 +173,7 @@ make clean
    ```
 5. **Inspect a specific file’s activity:**  
    ```bash
-   ./audit_monitor -i examnple1.txt
+   ./audit_monitor -i example1.txt
    ```
 
 ---
